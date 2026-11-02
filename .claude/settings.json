@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit(/docs/ai/**)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)"
+    ],
+    "deny": [
+      "Edit(/src/**)",
+      "Edit(/tests/**)",
+      "Edit(/services/**)",
+      "Edit(/web/**)",
+      "Edit(/infra/**)",
+      "Edit(/.github/**)",
+      "Edit(/docs/adr/**)",
+      "Edit(/.claude/**)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/README.md)",
+      "Edit(/*.sln)",
+      "Edit(/*.slnx)",
+      "Edit(/*.props)",
+      "Edit(/*.targets)",
+      "Edit(/global.json)",
+      "Edit(/.editorconfig)",
+      "Edit(/.gitignore)",
+      "Edit(/.gitattributes)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/local.settings.json)",
+      "Read(**/secrets.json)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git reset*)",
+      "Bash(git checkout*)",
+      "Bash(rm *)",
+      "Bash(az deployment*)",
+      "Bash(az group*)",
+      "Bash(azd *)"
+    ]
+  }
+}
