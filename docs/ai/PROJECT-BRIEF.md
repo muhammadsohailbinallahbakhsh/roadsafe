@@ -49,11 +49,11 @@ crosses a threshold, extracting the copilot as a real separate service.
 |---|---|
 | Dataset | US Accidents (Kaggle). Licence terms to be checked by me before publishing. |
 | Database | PostgreSQL with PostGIS and pgvector. Redis for caching. |
-| Backend | ASP.NET Core on .NET 10, Clean Architecture, DDD, CQRS. Modular monolith. |
-| Other deployables | Python FastAPI ML service, .NET worker, Azure Functions (required, not optional), React frontend |
-| ML | LightGBM or XGBoost, SHAP, MLflow registry, H3 spatial index, Open-Meteo for live weather |
+| Backend | ASP.NET Core on .NET 10, Clean Architecture, DDD, CQRS. Modular monolith. Module boundaries are decided in step 1.1, with their own ADR (CR-001). |
+| Other deployables | Python FastAPI ML service; .NET worker, which consumes Service Bus events; Azure Functions (required, not optional), where a timer Function ingests Open-Meteo weather (CR-003); React frontend |
+| ML | Gradient-boosted trees (LightGBM or XGBoost, an open decision), SHAP, MLflow registry, H3 spatial index, Open-Meteo for live weather |
 | Frontend | React, TypeScript, Vite, MapLibre GL, deck.gl |
-| AI layer | Microsoft.Extensions.AI plus Semantic Kernel or Microsoft Agent Framework. Official C# MCP SDK. |
+| AI layer | Microsoft.Extensions.AI plus an agent framework (Semantic Kernel or Microsoft Agent Framework, an open decision). Official C# MCP SDK. |
 | Models | Ollama locally, GitHub Models for prototyping, Azure OpenAI for the final Azure burst |
 | RAG | pgvector plus Postgres full-text search (hybrid), local reranker. Azure AI Search is the cloud swap. |
 | Messaging | Azure Service Bus (emulator locally), outbox pattern |
@@ -63,10 +63,25 @@ crosses a threshold, extracting the copilot as a real separate service.
 | Auth | ASP.NET Core Identity first; Microsoft Entra ID introduced in Phase 0 on a hello endpoint and adopted in Phase 4 |
 | Deploy and IaC | Docker, Azure Container Apps, Azure Functions, Key Vault, Bicep. AKS is a stretch only. |
 | CI/CD and tests | GitHub Actions, xUnit, Testcontainers |
-| Repo | One public repo named `roadsafe`. The `.sln` contains only .NET projects. Python and React live in their own folders. |
+| Repo | One public repo named `roadsafe`. The solution file `RoadSafe.slnx` contains only .NET projects (CR-001). Python and React live in their own folders. |
 
-Open item: MediatR, MassTransit and FluentAssertions have licensing changes. I am
-evaluating them. Do not add them until a decision is recorded.
+### Open decisions (CR-002)
+Not locked yet. Each one is decided through `CHANGE-REQUESTS.md` as a Tier 2 item, by the
+step shown. MediatR, MassTransit and FluentAssertions have licensing changes: do not add
+them until a decision is recorded.
+
+| Decision | Decide by | Notes |
+|---|---|---|
+| Assertion library | Before adding any assertion library | Interim (2026-11-03): plain xUnit asserts |
+| MediatR | Step 1.1 | |
+| MassTransit | Before outbox work | Timing depends on CR-009 |
+| Semantic Kernel or Microsoft Agent Framework | Step 2.3 | |
+| LightGBM or XGBoost | Step 1.3 | Decided by experiment |
+| Python toolchain (packaging, lint, test) | Step 1.2 | |
+| Frontend toolchain and test tools | Step 1.5 | |
+| Map tile provider | Step 1.5 | |
+| Frontend hosting in Azure | Step 4.3 | |
+| Azure AI Search swap | Not scheduled yet | Locked as the RAG cloud swap, but no step schedules it |
 
 ## Constraints
 - Azure budget cap of about $20-50 total. Local-first. Free tools where possible.
@@ -79,7 +94,7 @@ evaluating them. Do not add them until a decision is recorded.
 ## Repo layout
 ```
 roadsafe/
-  RoadSafe.sln         (.NET projects only)
+  RoadSafe.slnx        (.NET projects only)
   src/  tests/
   services/ml/         (Python)
   web/                 (React)
@@ -103,3 +118,7 @@ roadsafe/
 ## Out of scope
 Real production traffic data, mobile apps, multi-tenant billing, Kubernetes in the core
 build.
+
+## Change history
+- 2026-11-03: CR-001, CR-002 and CR-003 decided in the strategy thread and recorded here
+  (see `CHANGE-REQUESTS.md`).

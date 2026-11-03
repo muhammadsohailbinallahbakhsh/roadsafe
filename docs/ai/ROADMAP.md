@@ -16,7 +16,7 @@ availability and quota vary by region and subscription.
 
 | # | Build | Learn first | Done when |
 |---|---|---|---|
-| 0.1 | Public repo, solution skeleton following the dependency rule, `docs/adr/`, `infra/`, shared build settings, CI on GitHub Actions, README, and ADR-0001 written by me (why modular monolith + ML service + worker, not full microservices) | ADRs: [adr.github.io](https://adr.github.io). GitHub Actions quickstart (unverified). | CI is green on a PR |
+| 0.1 | Public repo, solution skeleton `RoadSafe.slnx` following the dependency rule (one host plus one example module that shows the layering, with an automated dependency check; module boundaries are decided in 1.1, CR-001), `docs/adr/`, `infra/`, shared build settings, CI on GitHub Actions, README, and ADR-0001 written by me (why modular monolith + ML service + worker + Functions, not full microservices, and how the timer Function's job differs from the worker's, CR-003) | ADRs: [adr.github.io](https://adr.github.io). GitHub Actions quickstart (unverified). | CI is green on a PR |
 | 0.2 | Hello API with health endpoint, multi-stage Dockerfile, non-root container | Microsoft Learn: containerize a .NET app (unverified). | `docker run` works; image is small and non-root |
 | 0.3 | Bicep for resource group, Log Analytics, Application Insights, container registry, Container Apps environment, Key Vault and the app. Budget alert FIRST. | [Fundamentals of Bicep](https://learn.microsoft.com/training/paths/fundamentals-bicep/) (verified) | One command builds the environment; I reviewed `what-if` before deploying |
 | 0.4 | GitHub Actions pipeline: build, test, push, deploy, authenticating with OIDC (no stored credential) | "Bicep with GitHub Actions" quickstart, linked from the [Bicep docs](https://learn.microsoft.com/azure/azure-resource-manager/bicep) (verified) | A push to main deploys |
@@ -28,7 +28,7 @@ availability and quota vary by region and subscription.
 | 0.10 | Tear everything down, redeploy from zero via the pipeline, check cost, write ADR-0002 and a README diagram | none | Repeatable rebuild; cost recorded |
 
 ## Phase 1: Foundation and Prediction Core
-1.1 Domain model and Clean Architecture/CQRS skeleton, Postgres and EF Core
+1.1 Domain model and Clean Architecture/CQRS skeleton, Postgres and EF Core. Module boundaries are decided here, with their own ADR (CR-001).
 1.2 US Accidents ingestion and cleaning, H3 grid, features
 1.3 Model training with experiment registry and SHAP
 1.4 FastAPI model service and its .NET integration

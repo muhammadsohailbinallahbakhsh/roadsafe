@@ -1,7 +1,7 @@
 # Learning Prompt
 
 Use this in a NEW thread inside the Claude Project "Road Accident Project", before a step
-whose technology is new to me. Fill the three brackets. The step's "Learn first" column in
+whose technology is new to me. Fill the four brackets. The step's "Learn first" column in
 ROADMAP.md tells me the topic and a starting resource.
 
 ```

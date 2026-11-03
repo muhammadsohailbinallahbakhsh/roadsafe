@@ -1,12 +1,6 @@
 {
   "permissions": {
-    "allow": [
-      "Read",
-      "Edit(/docs/ai/**)",
-      "Bash(git status*)",
-      "Bash(git diff*)",
-      "Bash(git log*)"
-    ],
+    "allow": ["Edit(/docs/ai/**)", "Bash(git status*)", "Bash(git log*)"],
     "deny": [
       "Edit(/src/**)",
       "Edit(/tests/**)",
@@ -38,7 +32,19 @@
       "Bash(rm *)",
       "Bash(az deployment*)",
       "Bash(az group*)",
-      "Bash(azd *)"
+      "Bash(azd *)",
+      "Read(~/.azure/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.kaggle/**)",
+      "Read(~/AppData/Roaming/Microsoft/UserSecrets/**)",
+      "Read(**/*.pfx)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)"
+    ],
+    "ask": [
+      "Bash(git diff*)",
+      "Edit(/docs/ai/PROJECT-BRIEF.md)",
+      "Edit(/docs/ai/ROADMAP.md)"
     ]
   }
 }
